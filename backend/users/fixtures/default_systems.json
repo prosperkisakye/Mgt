@@ -1,0 +1,33 @@
+{
+  "system_types": [
+    {
+      "name": "Education",
+      "description": "Handles education sector integrations"
+    },
+    {
+      "name": "Healthcare",
+      "description": "Healthcare data systems"
+    },
+    {
+      "name": "Finance",
+      "description": "Finance-related systems"
+    },
+    {
+      "name": "Supermarket",
+      "description": "Supermarket and retail systems"
+    }
+
+  ],
+  "systems": [
+    {
+      "code": "EDUMAS",
+      "system_type": "Education",
+      "description": "Education Management System"
+    },
+    {
+      "code": "SUPAMAX",
+      "system_type": "Supermarket",
+      "description": "Supermarket Management System"
+    }
+  ]
+}

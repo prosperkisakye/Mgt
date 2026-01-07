@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify Your Account</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
+      .gradient-bg {
+        background: linear-gradient(135deg, #ff3403 0%, #b35403 100%);
+      }
+
+      .pulse-animation {
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .hover-lift {
+        transition: all 0.3s ease;
+      }
+
+      .hover-lift:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(168, 85, 247, 0.3);
+      }
+
+      .verification-icon {
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        margin-bottom: 15px;
+        position: relative;
+      }
+
+      .verification-icon::after {
+        content: "✓";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .security-badge {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(168, 85, 247, 0.1);
+        border: 1px solid rgba(168, 85, 247, 0.3);
+        border-radius: 20px;
+        padding: 8px 16px;
+        margin: 10px 0;
+      }
+
+      .security-icon {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        opacity: 0.7;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .container {
+          width: 100% !important;
+          margin: 0 !important;
+        }
+        .content-padding {
+          padding: 25px 20px !important;
+        }
+        .button {
+          display: block !important;
+          width: 100% !important;
+          box-sizing: border-box !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 20px;
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      min-height: 100vh;
+    "
+  >
+    <table
+      class="container"
+      align="center"
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      width="100%"
+      style="
+        max-width: 600px;
+        margin: 40px auto;
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        overflow: hidden;
+      "
+    >
+      <!-- Header Section -->
+      <tr>
+        <td
+          class="gradient-bg"
+          style="padding: 40px 20px; text-align: center; position: relative"
+        >
+          <div class="verification-icon"></div>
+          <h1
+            style="
+              color: #ffffff;
+              font-size: 28px;
+              font-weight: 700;
+              margin: 0 0 8px 0;
+              letter-spacing: -0.5px;
+            "
+          >
+            Welcome to BAIFAM HR!
+          </h1>
+          <p
+            style="
+              color: rgba(255, 255, 255, 0.9);
+              font-size: 16px;
+              margin: 0;
+              font-weight: 400;
+            "
+          >
+            Your journey to excellence starts here
+          </p>
+        </td>
+      </tr>
+
+      <!-- Main Content -->
+      <tr>
+        <td class="content-padding" style="padding: 40px 30px; color: #1f2937">
+          <h2
+            style="
+              font-size: 24px;
+              font-weight: 600;
+              margin: 0 0 20px 0;
+              color: #111827;
+            "
+          >
+            Hello {{ personalized_greeting }},
+          </h2>
+
+          <p
+            style="
+              font-size: 16px;
+              line-height: 1.7;
+              margin-bottom: 25px;
+              color: #4b5563;
+            "
+          >
+            We're thrilled to have you join the BAIFAM HR community! To get
+            started and secure your account, please verify your email address by
+            clicking the button below.
+          </p>
+
+          <!-- CTA Button -->
+          <div style="text-align: center; margin: 35px 0">
+            <a
+              href="{{ link }}"
+              class="button hover-lift pulse-animation"
+              style="
+                display: inline-block;
+                padding: 16px 32px;
+                font-size: 16px;
+                font-weight: 600;
+                color: #ffffff;
+                background: linear-gradient(135deg, #a855f7 0%, #c084fc 100%);
+                text-decoration: none;
+                border-radius: 12px;
+                box-shadow: 0 4px 14px 0 rgba(168, 85, 247, 0.39);
+                transition: all 0.3s ease;
+              "
+            >
+              ✓ Verify Your Account
+            </a>
+          </div>
+
+          <!-- Security Information -->
+          <div
+            style="
+              background: #f8fafc;
+              border-radius: 12px;
+              padding: 20px;
+              margin: 30px 0;
+              border-left: 4px solid #a855f7;
+            "
+          >
+            >
+            <div class="security-badge">
+              <svg
+                class="security-icon"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 1L5 4v5.5c0 3.5 2.5 6.5 5 7 2.5-.5 5-3.5 5-7V4l-5-3z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span style="font-size: 14px; font-weight: 500; color: #a855f7"
+                >Secure Verification</span
+              >
+            </div>
+            <p
+              style="
+                font-size: 14px;
+                color: #6b7280;
+                margin: 8px 0 0 0;
+                line-height: 1.5;
+              "
+            >
+              <strong>⏰ This link expires in 15 minutes</strong> for your
+              security. If you didn't create an account with BAIFAM HR, you can
+              safely ignore this email.
+            </p>
+          </div>
+
+          <!-- Alternative Action -->
+          <div
+            style="
+              background: linear-gradient(
+                135deg,
+                rgba(168, 85, 247, 0.05) 0%,
+                rgba(168, 85, 247, 0.1) 100%
+              );
+              border-radius: 8px;
+              padding: 16px;
+              margin: 25px 0;
+            "
+          >
+            >
+            <p
+              style="
+                font-size: 14px;
+                color: #374151;
+                margin: 0;
+                text-align: center;
+              "
+            >
+              <strong>Can't click the button?</strong> Copy and paste this link
+              into your browser:<br />
+              <span
+                style="
+                  word-break: break-all;
+                  color: #a855f7;
+                  font-family: monospace;
+                  font-size: 13px;
+                "
+                >{{ link }}</span
+              >
+            </p>
+          </div>
+
+          <div
+            style="
+              margin-top: 40px;
+              padding-top: 25px;
+              border-top: 1px solid #e5e7eb;
+            "
+          >
+            <p style="font-size: 16px; color: #374151; margin: 0 0 8px 0">
+              Best regards,<br />
+              <strong style="color: #a855f7">The HR Team</strong>
+            </p>
+          </div>
+        </td>
+      </tr>
+
+      <!-- Footer -->
+      <tr>
+        <td
+          style="
+            padding: 25px 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-top: 1px solid #e5e7eb;
+          "
+        >
+          <p style="font-size: 12px; color: #9ca3af; margin: 0 0 8px 0">
+            &copy; {{ year }} BAIFAM HR. All rights reserved.
+          </p>
+          <p style="font-size: 11px; color: #d1d5db; margin: 0">
+            This email was sent to {{ user.email }} because you signed up for a
+            BAIFAM HR account.
+          </p>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Mobile Responsive Spacer -->
+    <div style="height: 40px"></div>
+  </body>
+</html>

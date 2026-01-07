@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Early",
+    "code": "EARLY",
+    "description": "Employee arrived before the official reporting window.\nCan be used to reward consistency or for overtime calculations (if applicable).",
+    "window_start": "06:00:00",
+    "window_end": "06:59:59",
+    "is_absent_flag": false,
+    "blocks_system_access": false,
+    "triggers_penalty": false,
+    "severity": 0,
+    "color_hex": "#4CAF50"
+  },
+  {
+    "name": "On Time",
+    "code": "ON_TIME",
+    "description": "Employee arrived within the acceptable reporting window.",
+    "window_start": "07:00:00",
+    "window_end": "07:29:59",
+    "is_absent_flag": false,
+    "blocks_system_access": false,
+    "triggers_penalty": false,
+    "severity": 1,
+    "color_hex": "#2196F3"
+  },
+  {
+    "name": "Late",
+    "code": "LATE",
+    "description": "Employee exceeded the grace period and is marked late.\nFlag for monthly lateness report.\nNotify supervisor automatically.",
+    "window_start": "07:30:00",
+    "window_end": "07:59:59",
+    "is_absent_flag": false,
+    "blocks_system_access": false,
+    "triggers_penalty": true,
+    "severity": 4,
+    "color_hex": "#FF9800"
+  },
+  {
+    "name": "Very Late",
+    "code": "VERY_LATE",
+    "description": "Employee arrived excessively late.\nRecommended: Salary deduction + Auto-trigger HR warning after 3 occurrences.\nHighlight in red on dashboard.",
+    "window_start": "08:00:00",
+    "window_end": "08:59:59",
+    "is_absent_flag": false,
+    "blocks_system_access": true,
+    "triggers_penalty": true,
+    "severity": 7,
+    "color_hex": "#F44336"
+  },
+  {
+    "name": "Absent",
+    "code": "ABSENT",
+    "description": "No clock-in by 9:00 AM or later. Auto-flag as ABSENT.\nSuspend system login access and require staff to report to HR unless approved leave exists.",
+    "window_start": "09:00:00",
+    "window_end": null,
+    "is_absent_flag": true,
+    "blocks_system_access": true,
+    "triggers_penalty": true,
+    "severity": 10,
+    "color_hex": "#B00020"
+  }
+]

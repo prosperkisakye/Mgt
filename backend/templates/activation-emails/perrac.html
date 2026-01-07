@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perrac Module Activation Confirmation</title>
+  </head>
+  <body>
+    <p>Dear {{ owner_full_name }},</p>
+
+    <p>
+      We are pleased to inform you that your institution,
+      <strong>{{ institution_name }}</strong>, has been successfully activated
+      on the Perrac Module!
+    </p>
+
+    <h3>Institution Details:</h3>
+    <ul>
+      <li><strong>Institution Name:</strong> {{ institution_name }}</li>
+      <li><strong>Branches:</strong> {{ branches }} branch(es)</li>
+      <li><strong>Departments:</strong> {{ departments }} department(s)</li>
+      <li><strong>Employees:</strong> {{ employees }} employee(s)</li>
+    </ul>
+
+    <p>
+      This means your institution is now fully integrated into the system and
+      ready for use.
+    </p>
+
+    <p>
+      Should you have any questions or need assistance, feel free to contact us
+      at any time.
+    </p>
+
+    <p>Thank you for choosing Perrac!</p>
+
+    <p>Best regards,</p>
+    <p><strong>The Perrac Support Team</strong></p>
+
+    <footer>
+      <p>&copy; {{ year }} Perrac. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

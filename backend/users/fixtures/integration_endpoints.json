@@ -1,0 +1,93 @@
+{
+  "SUPRALEDGER": {
+    "institution": {
+      "create": {
+        "endpoint": "institution/",
+        "method": "PATCH"
+      },
+      "update": {
+        "endpoint": "institution/<base_uuid>/",
+        "method": "PATCH"
+      }
+    },
+    "bank": {
+      "create": {
+        "endpoint": "bank_management/bank-accounts/",
+        "method": "POST"
+      },
+      "update": {
+        "endpoint": "bank_management/bank-accounts/<base_uuid>/",
+        "method": "PATCH"
+      }
+    },
+    "branch": {
+      "create": {
+        "endpoint": "institution/branch/",
+        "method": "POST"
+      },
+      "update": {
+        "endpoint": "institution/branch/<base_uuid>/",
+        "method": "PATCH"
+      }
+    },
+    "payroll": {
+      "create": {
+        "endpoint": "requisitions/payroll-based/",
+        "method": "POST"
+      },
+      "update": {
+        "endpoint": "requisitions/payroll-based/<base_uuid>/",
+        "method": "PATCH"
+      }
+    },
+    "user": {
+      "create": {
+        "endpoint": "user/send-institution-external-user/",
+        "method": "POST"
+      }
+
+    },
+    "accounting_user": {
+      "create": {
+        "endpoint": "user/accounting-user/",
+        "method": "POST"
+      },
+      "update": {
+        "endpoint": "user/accounting-user/<base_uuid>/",
+        "method": "PATCH"
+      }
+    }
+  },
+  "TASK MANAGEMENT": {
+    "institution": {
+      "create": {
+        "endpoint": "institution/",
+        "method": "PATCH"
+      },
+      "update": {
+        "endpoint": "institution/<base_uuid>/",
+        "method": "PATCH"
+      }
+    },
+    "standalone_task": {
+      "create": {
+        "endpoint": "tasks/tasks/",
+        "method": "POST"
+      },
+      "update": {
+        "endpoint": "tasks/tasks/<base_uuid>/details/",
+        "method": "PATCH" 
+      }
+    },
+    "user": {
+      "create": {
+        "endpoint": "user/external-user/",
+        "method": "POST"
+      },
+      "update": {
+        "endpoint": "user/external-user/<base_uuid>/",
+        "method": "PATCH"
+      }
+    }
+  }
+}

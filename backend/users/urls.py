@@ -1,0 +1,66 @@
+from django.urls import path
+from .views import (
+    ChangePasswordAPIView,
+    LoginView,
+    UserDetailAPIView,
+    UserListAPIView,
+    UserPermissionDeleteView,
+    UserPermissionDetailView,
+    UserPermissionListView,
+    VerifyOTPAPIView,
+    ResendOTPAPIView,
+    RoleListAPIView,
+    RoleDetailAPIView,
+    PermissionCategoryListAPIView,
+    PermissionCategoryDetailAPIView,
+    PermissionListAPIView,
+    PermissionDetailAPIView,
+    ForgotPasswordAPIView,
+    VerifyTokenAPIView,
+    ResetPasswordAPIView,
+    ChangeEmailAndResendOTPAPIView,
+    LogoutView,
+)
+
+
+urlpatterns = [
+    path("", UserListAPIView.as_view(), name="user-management"),
+    path("<uuid:base_uuid>/", UserDetailAPIView.as_view(), name="user-detail"),
+
+    path(
+        "change-email-and-resend-otp/",
+        ChangeEmailAndResendOTPAPIView.as_view(),
+        name="change-email-and-resend-otp",
+    ),
+    path("verify-otp/", VerifyOTPAPIView.as_view(), name="verify-otp"),
+    path("resend-otp/", ResendOTPAPIView.as_view(), name="resend-otp"),
+    path("login/", LoginView.as_view(), name="user-login"),
+    path("logout/", LogoutView.as_view(), name="user-logout"),
+    path("role/", RoleListAPIView.as_view(), name="role-list"),
+    path("role/<uuid:base_uuid>/", RoleDetailAPIView.as_view(), name="role-detail"),
+    path(
+        "permission-category/",
+        PermissionCategoryListAPIView.as_view(),
+        name="permission-category",
+    ),
+    path(
+        "permission-category/<uuid:base_uuid>/",
+        PermissionCategoryDetailAPIView.as_view(),
+        name="permission-category-detail",
+    ),
+    path("permission/", PermissionListAPIView.as_view(), name="permission-list"),
+    path(
+        "permission/<uuid:base_uuid>/",
+        PermissionDetailAPIView.as_view(),
+        name="permission-detail",
+    ),
+    path("forgot-password", ForgotPasswordAPIView.as_view(), name="forgot-password"),
+    path("verify-token", VerifyTokenAPIView.as_view(), name="verify-token"),
+    path("reset-password", ResetPasswordAPIView.as_view(), name="reset-password"),
+    path("all/user-permissions/<uuid:user_base_uuid>/", UserPermissionListView.as_view(), name="user-permissions"),
+    path("user-permissions/<uuid:user_base_uuid>/", UserPermissionDetailView.as_view(), name="user-permissions"),
+    path('user-permissions/<uuid:base_uuid>/delete/', 
+         UserPermissionDeleteView.as_view(), 
+         name='user-permission-delete'),
+    path("change-password/", ChangePasswordAPIView.as_view(), name="change-password"),
+]

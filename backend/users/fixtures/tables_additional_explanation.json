@@ -1,0 +1,851 @@
+{
+  "users_profile": {
+    "description": "This table stores user profile information including bio.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Each user profile belongs to one specific institution."
+  },
+
+  "users_profileinstitution": {
+    "description": "This table creates a many-to-many relationship between user profiles and institutions.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Allows users to be associated with multiple institutions."
+  },
+
+  "users_role": {
+    "description": "This table defines roles for users/employees can have in the system.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Each role is institution-specific."
+  },
+
+  "users_rolepermission": {
+    "description": "This table maps permissions to roles, defining what each role can do.",
+    "institution_relation": "INDIRECT: Via users_role.institution_id. Access institution through role_id → users_role → institution_institution."
+  },
+
+  "users_userrole": {
+    "description": "This table assigns roles to users, determining their access levels.",
+    "institution_relation": "INDIRECT: Via users_role.institution_id. Access institution through role_id → users_role → institution_institution."
+  },
+
+  "users_signature": {
+    "description": "This table stores digital signatures for users.",
+    "institution_relation": "INDIRECT: Via users_customuser → users_profile.institution_id. Access institution through user_id → users_customuser → users_profile → institution_institution."
+  },
+
+  "institution_institutionkycdocument": {
+    "description": "This table stores KYC (Know Your Customer) verification documents for institutions.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Contains verification and compliance documents."
+  },
+
+  "institution_institutionbanktype": {
+    "description": "This table defines bank types and codes available for the institution.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Specifies which banks the institution can use."
+  },
+
+  "institution_institutionbankaccount": {
+    "description": "This table stores bank account information for institutions.",
+    "institution_relation": "INDIRECT: Via institution_institutionbanktype.institution_id. Access institution through institution_bank_id → institution_institutionbanktype → institution_institution."
+  },
+
+  "institution_institutionworkingdays": {
+    "description": "This table defines the working days for institutions.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Sets institution-wide working schedule."
+  },
+
+  "institution_institutionday": {
+    "description": "This table stores specific day details (opening/closing times) for institution working days.",
+    "institution_relation": "INDIRECT: Via institution_institutionworkingdays.institution_id. Access institution through institution_working_days_id → institution_institutionworkingdays → institution_institution."
+  },
+
+  "institution_institutiontax": {
+    "description": "This table defines tax configurations and rules for institutions.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Institution-specific tax settings."
+  },
+
+  "institution_employeetaxtype": {
+    "description": "This table links employee types to tax configurations.",
+    "institution_relation": "INDIRECT: Via institution_institutiontax.institution_id. Access institution through tax_id → institution_institutiontax → institution_institution."
+  },
+
+  "institution_taxmonths": {
+    "description": "This table defines which months taxes apply for specific tax rules.",
+    "institution_relation": "INDIRECT: Via institution_institutiontax.institution_id. Access institution through tax_id → institution_institutiontax → institution_institution."
+  },
+
+  "institution_institutiontaxrule": {
+    "description": "This table stores specific tax calculation rules and formulas.",
+    "institution_relation": "INDIRECT: Via institution_institutiontax.institution_id. Access institution through institution_tax_id → institution_institutiontax → institution_institution."
+  },
+
+  "institution_branch": {
+    "description": "It represents physical branches of an institution.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Branches belong to one institution."
+  },
+
+  "institution_branchworkingdays": {
+    "description": "This table defines working days schedule for specific branches.",
+    "institution_relation": "INDIRECT: Via institution_branch.institution_id. Access institution through branch_id → institution_branch → institution_institution."
+  },
+
+  "institution_branchday": {
+    "description": "This table stores specific day details for branch working schedules.",
+    "institution_relation": "INDIRECT: Via institution_branchworkingdays → institution_branch.institution_id. Access institution through branch_working_days_id → institution_branchworkingdays → institution_branch → institution_institution."
+  },
+
+  "institution_branchshift": {
+    "description": "This table defines work shifts for branches.",
+    "institution_relation": "INDIRECT: Via institution_branch.institution_id. Access institution through branch_id → institution_branch → institution_institution."
+  },
+
+  "institution_userbranch": {
+    "description": "This table links users to branches they are assigned to.",
+    "institution_relation": "INDIRECT: Via institution_branch.institution_id. Access institution through branch_id → institution_branch → institution_institution."
+  },
+
+  "institution_department": {
+    "description": "This table defines departments within an institution (HR, IT, Sales, etc).",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Departments belong to one institution."
+  },
+
+  "institution_branchdepartment": {
+    "description": "This links departments to branches (many-to-many relationship).",
+    "institution_relation": "INDIRECT: Via institution_branch.institution_id. Access through branch_id → institution_branch → institution_institution."
+  },
+
+  "institution_institutionpenaltyconfig": {
+    "description": "This table stores penalty (late_coming, early_leaving, absent, no_response_spotcheck, late_spotcheck_response) configurations at the institution level. ",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Institution-wide penalty rules."
+  },
+
+  "institution_branchpenaltyconfig": {
+    "description": "This table stores penalty (late_coming, early_leaving, absent, no_response_spotcheck, late_spotcheck_response) configurations at the branch level.",
+    "institution_relation": "INDIRECT: Via institution_branch.institution_id. Access institution through branch_id → institution_branch → institution_institution."
+  },
+
+  "institution_branchlocationcomparisonconfig": {
+    "description": "This table stores geolocation verification settings for branches (check-in radius).",
+    "institution_relation": "INDIRECT: Via institution_branch.institution_id. Access institution through branch_id → institution_branch → institution_institution."
+  },
+
+  "institution_ownershiptransfer": {
+    "description": "This tracks ownership transfer history for institutions.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Records when institution ownership changes hands."
+  },
+
+  "institution_usergroup": {
+    "description": "This table defines groups of employees.",
+    "institution_relation": "INDIRECT: Via employee. Access institution through employees → employee → institution (via department or branch)."
+  },
+
+  "institution_usergroupemployee": {
+    "description": "This table links employees to user groups (many-to-many).",
+    "institution_relation": "INDIRECT: Via employee. Access institution through employee_id → employee → institution (via department or branch)."
+  },
+
+  "institution_institutionsmssetting": {
+    "description": "This table stores SMS notification settings for institutions.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Institution-wide SMS configuration."
+  },
+
+  "institution_smsusergroup": {
+    "description": "This table links SMS settings to user groups for targeted notifications.",
+    "institution_relation": "INDIRECT: Via institution_institutionsmssetting.institution_id. Access institution through institution_setting_id → institution_institutionsmssetting → institution_institution."
+  },
+
+  "employeetype": {
+    "description": "This table defines types of employees (Full-time, Part-time, Contract, etc).",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Employee type classifications per institution."
+  },
+
+  "worktype": {
+    "description": "This defines work types (Remote, On-site, Hybrid, etc).",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Work type classifications per institution."
+  },
+
+  "employeebankaccount": {
+    "description": "It stores employee bank account details used for salary payments.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → branch → institution_institution."
+  },
+
+  "employeenextofkin": {
+    "description": "This table stores emergency contact information for employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → branch → institution_institution."
+  },
+
+  "employeechild": {
+    "description": "This table stores information about employees' children.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → department/branch → institution_institution."
+  },
+
+  "employeespouse": {
+    "description": "This table stores information about employees' spouses.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → department/branch → institution_institution."
+  },
+
+  "employeeeducation": {
+    "description": "This table stores educational qualifications of employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → department/branch → institution_institution."
+  },
+
+  "employeeworkexperience": {
+    "description": "This table stores previous work experience of employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → branch → institution_institution."
+  },
+
+  "employee": {
+    "description": "This table stores core employee information including personal details, position, salary etc.",
+    "institution_relation": "INDIRECT: Via institution_department.institution_id. Access through department_id → institution_department → institution_institution."
+  },
+
+  "employee_supervisor": {
+    "description": "This stores supervisors of an employee.",
+    "institution_relation": "INDIRECT: Via employee and institution_department. Access through target_employees/target_departments → institution."
+  },
+
+  "employeeworkingdays": {
+    "description": "This table defines custom working days for specific employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → department/branch → institution_institution."
+  },
+
+  "employeeday": {
+    "description": "This table stores specific day details for employee working schedules.",
+    "institution_relation": "INDIRECT: Via employee_employeeworkingdays → employee → institution. Access through employee_working_days_id → employee_employeeworkingdays → employee → institution."
+  },
+
+  "employeeshift": {
+    "description": "This stores shifts to employees in type of REQUEST or ALLOCATION.",
+    "institution_relation": "INDIRECT: Via institution_branchshift → institution_branch. Access through shift_id → institution_branchshift → institution_branch → institution_institution."
+  },
+
+  "employeeattendance": {
+    "description": "This table records daily employee attendance with check-in/check-out times.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → branch → institution_institution."
+  },
+
+  "employeecontract": {
+    "description": "This table stores employment contracts for employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → branch → institution_institution."
+  },
+
+  "documentrequest": {
+    "description": "This table tracks requests for documents from employees.",
+    "institution_relation": "INDIRECT: Via employee. Access through employees → employee → branch → institution_institution."
+  },
+
+  "employeedocumentrequest": {
+    "description": "This table links document requests to specific employees with status tracking.",
+    "institution_relation": "INDIRECT: Via employee. Access through employee_id → employee → branch → institution_institution."
+  },
+
+  "employeerequesteddocument": {
+    "description": "This table stores actual documents submitted by employees in response to requests.",
+    "institution_relation": "INDIRECT: Via employee_documentrequestemployee → employee → institution. Access through document_request_employee_id → employee_documentrequestemployee → employee → institution."
+  },
+
+  "onboarding_onboarding": {
+    "description": "This table tracks onboarding process for new hires.",
+    "institution_relation": "INDIRECT: Via recruitment_jobadvertapplication → recruitment_jobpositionadvert → recruitment_jobposition → institution_department. Access through application_id chain to institution_institution."
+  },
+
+  "onboarding_terminationstage": {
+    "description": "This table defines stages in the employee termination process.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Institution-specific termination workflow stages."
+  },
+
+  "onboarding_terminationtype": {
+    "description": "This table defines types of termination (Resignation, Retirement, Dismissal, etc).",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Institution-specific termination types."
+  },
+
+  "onboarding_terminationtypestage": {
+    "description": "This table links termination types to their required stages.",
+    "institution_relation": "INDIRECT: Via onboarding_terminationtype.institution_id. Access through termination_type_id → onboarding_terminationtype → institution_institution."
+  },
+
+  "onboarding_offboarding": {
+    "description": "This table tracks the employee exit/termination process.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → department → institution_institution."
+  },
+
+  "onboarding_offboardingstageprogress": {
+    "description": "This table tracks progress through offboarding stages for each employee.",
+    "institution_relation": "INDIRECT: Via onboarding_offboarding → employee → institution. Access through offboarding_id → onboarding_offboarding → employee → institution."
+  },
+
+  "onboarding_handoverreport": {
+    "description": "This table stores handover reports submitted during offboarding.",
+    "institution_relation": "INDIRECT: Via onboarding_offboarding → employee → institution. Access through offboarding_id → onboarding_offboarding → employee → institution."
+  },
+
+  "recruitment_jobposition": {
+    "description": "This table defines job positions/titles within the organization.",
+    "institution_relation": "INDIRECT: Via institution_department.institution_id. Access through department_id → institution_department → institution_institution."
+  },
+
+  "recruitment_jobpositionadvert": {
+    "description": "This table represents job advertisements/postings for open positions.",
+    "institution_relation": "INDIRECT: Via recruitment_jobposition → institution_department. Access through job_position_id → recruitment_jobposition → institution_department → institution_institution."
+  },
+
+  "recruitment_jobadvertapplication": {
+    "description": "This table stores job applications from candidates.",
+    "institution_relation": "INDIRECT: Via recruitment_jobpositionadvert → recruitment_jobposition → institution_department. Access through job_position_advert_id chain to institution_institution."
+  },
+
+  "recruitment_applicationdocument": {
+    "description": "This table stores documents uploaded by job applicants (CV, certificates, etc).",
+    "institution_relation": "INDIRECT: Via recruitment_jobadvertapplication → recruitment_jobpositionadvert → recruitment_jobposition → institution_department. Access through job_advert_application_id chain to institution_institution."
+  },
+
+  "recruitment_interviewstage": {
+    "description": "This table defines interview stages for job positions (screening, technical, HR, etc).",
+    "institution_relation": "INDIRECT: Via recruitment_jobpositionadvert → recruitment_jobposition → institution_department. Access through job_position_advert_id chain to institution_institution."
+  },
+
+  "recruitment_jobinterview": {
+    "description": "This table schedules and tracks individual interviews for applicants.",
+    "institution_relation": "INDIRECT: Via recruitment_jobadvertapplication → recruitment_jobpositionadvert → recruitment_jobposition → institution_department. Access through job_position_application_id chain to institution_institution."
+  },
+
+  "recruitment_skillzonecategory": {
+    "description": "This table categorizes skill zones for talent management.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Institution-specific skill categorization."
+  },
+
+  "recruitment_skillzone": {
+    "description": "This table tracks candidate skills and potential value.",
+    "institution_relation": "INDIRECT: Via recruitment_jobadvertapplication → recruitment_jobpositionadvert → recruitment_jobposition → institution_department. Access through candidate_id chain to institution_institution."
+  },
+
+  "discipline_disciplinaryaction": {
+    "description": "This table records disciplinary actions taken against employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → branch → institution_institution."
+  },
+
+  "leave_types": {
+    "description": "This table defines types of leave (Annual, Sick, Maternity, etc).",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Institution-specific leave types."
+  },
+
+  "leave_balances": {
+    "description": "This table tracks leave balances for each employee per leave type per year.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Tracks leave balances by institution."
+  },
+
+  "leave_applications": {
+    "description": "This table stores leave requests submitted by employees.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Leave applications are tracked at institution level."
+  },
+
+  "leave_policies": {
+    "description": "This table defines leave policies and rules for leave types.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Institution-specific leave policies."
+  },
+
+  "leave_mgt_outofoffice": {
+    "description": "This table tracks when employees are out of office temporarily.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → branch → institution_institution."
+  },
+
+  "payroll_allowancetype": {
+    "description": "This table defines types of allowances (Housing, Transport, Medical, etc).",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Institution-specific allowance types."
+  },
+
+  "payroll_deductiontype": {
+    "description": "This table defines types of deductions (Loan, Tax, Insurance, etc).",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Institution-specific deduction types."
+  },
+
+  "payroll_employeeallowance": {
+    "description": "It stores allowances to specific employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → branch → institution_institution."
+  },
+
+  "payroll_employeededuction": {
+    "description": "It stores deductions to specific employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → branch → institution_institution."
+  },
+
+  "payroll_employeetax": {
+    "description": "It stores tax configurations to employees.",
+    "institution_relation": "INDIRECT: Via institution_institutiontax.institution_id. Access through institution_tax_id → institution_institutiontax → institution_institution."
+  },
+
+  "payroll_employeepenalty": {
+    "description": "This table records penalties applied to employees (late arrival, early departure, etc).",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → branch → institution_institution."
+  },
+
+  "payroll_penaltywaiverequest": {
+    "description": "This table tracks requests to waive/cancel employee penalties.",
+    "institution_relation": "INDIRECT: Via payroll_employeepenalty → employee → institution. Access through penalty_id → payroll_employeepenalty → employee → institution."
+  },
+
+  "payroll_payrollperiod": {
+    "description": "This table defines payroll processing periods (monthly, bi-weekly, etc).",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Payroll periods are institution-specific."
+  },
+
+  "payroll_payrollperiodtargetjobposition": {
+    "description": "This table links payroll periods to target job positions for processing.",
+    "institution_relation": "INDIRECT: Via payroll_payrollperiod.institution_id. Access through payroll_period_id → payroll_payrollperiod → institution_institution."
+  },
+
+  "payroll_payrollperiodtargetbranch": {
+    "description": "This table links payroll periods to target branches for processing.",
+    "institution_relation": "INDIRECT: Via payroll_payrollperiod.institution_id OR institution_branch.institution_id. Access through payroll_period_id → payroll_payrollperiod → institution_institution."
+  },
+
+  "payroll_payrollperiodtargetdepartment": {
+    "description": "This table links payroll periods to target departments for processing.",
+    "institution_relation": "INDIRECT: Via payroll_payrollperiod.institution_id OR institution_department.institution_id. Access through payroll_period_id → payroll_payrollperiod → institution_institution."
+  },
+
+  "payroll_payrollperiodtargetemployee": {
+    "description": "This table links payroll periods to specific target employees for processing.",
+    "institution_relation": "INDIRECT: Via payroll_payrollperiod.institution_id. Access through payroll_period_id → payroll_payrollperiod → institution_institution."
+  },
+
+  "payroll_payslip": {
+    "description": "This table generates payslips for employees showing salary breakdown.",
+    "institution_relation": "INDIRECT: Via employee → institution AND payroll_payrollperiod.institution_id. Access through employee_id → employee → institution OR payroll_period_id → payroll_payrollperiod → institution_institution."
+  },
+
+  "payroll_payslipitem": {
+    "description": "This table stores individual line items on payslips (allowances, deductions, etc).",
+    "institution_relation": "INDIRECT: Via payroll_payslip → payroll_payrollperiod OR employee. Access through payslip_id → payroll_payslip → institution."
+  },
+
+  "performance_period": {
+    "description": "This table defines performance review periods (quarterly, annually, etc).",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Performance periods are institution-specific."
+  },
+
+  "performance_objectives": {
+    "description": "This table defines organizational objectives and goals.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Objectives are set at institution level."
+  },
+
+  "performance_employeeobjectives": {
+    "description": "This table assigns objectives to employees for tracking.",
+    "institution_relation": "INDIRECT: Via employee → institution OR performance_objectives.institution_id. Access through employee_id → employee → institution OR objective_id → performance_objectives → institution_institution."
+  },
+
+  "performance_keyresult": {
+    "description": "This table defines key results/KPIs for measuring objectives.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Key results are institution-specific."
+  },
+
+  "performance_feedback360": {
+    "description": "This table stores 360-degree feedback between employees.",
+    "institution_relation": "INDIRECT: Via employee → institution OR performance_period.institution_id. Access through reviewer_id/given_by_id → employee → institution OR period_id → performance_period → institution_institution."
+  },
+
+  "performance_employeebonuspoint": {
+    "description": "This table tracks bonus points awarded to employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → department/branch → institution_institution."
+  },
+
+  "performance_questiontemplate": {
+    "description": "This table stores question templates for performance reviews.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Question templates are institution-specific."
+  },
+
+  "performance_bonuspointsettings": {
+    "description": "This table configures conditions for awarding bonus points.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Bonus point rules are institution-specific."
+  },
+
+  "performance_meeting": {
+    "description": "This table schedules and tracks performance review meetings.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Meetings are organized at institution level."
+  },
+
+  "performance_performanceconcerntype": {
+    "description": "This table defines types of performance concerns/issues.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Performance concern categories are institution-specific."
+  },
+
+  "performance_performanceconcern": {
+    "description": "This table records specific performance concerns/issues.",
+    "institution_relation": "INDIRECT: Via performance_performanceconcerntype.institution_id. Access through category_id → performance_performanceconcerntype → institution_institution."
+  },
+
+  "performance_pipsupportresourcetype": {
+    "description": "This table defines types of support resources for Performance Improvement Plans.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. PIP support resource types are institution-specific."
+  },
+
+  "performance_pipsupportresource": {
+    "description": "This table stores specific support resources for PIPs (training, mentoring, etc).",
+    "institution_relation": "INDIRECT: Via performance_pipsupportresourcetype.institution_id. Access through type_id → performance_pipsupportresourcetype → institution_institution."
+  },
+
+  "performance_performanceimprovementplan": {
+    "description": "This table manages Performance Improvement Plans for underperforming employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → department/branch → institution_institution."
+  },
+
+  "performance_pipemployeeobjectives": {
+    "description": "This table assigns specific objectives to employees under PIP.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → department/branch → institution_institution."
+  },
+
+  "projects_project": {
+    "description": "This table manages projects within the organization.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Projects belong to one institution."
+  },
+
+  "projects_projectdocument": {
+    "description": "This table stores documents related to projects.",
+    "institution_relation": "INDIRECT: Via projects_project.institution_id. Access through project_id → projects_project → institution_institution."
+  },
+
+  "projects_task": {
+    "description": "This table manages tasks within projects.",
+    "institution_relation": "INDIRECT: Via projects_project.institution_id. Access through project_id → projects_project → institution_institution."
+  },
+
+  "projects_taskdocument": {
+    "description": "This table stores documents related to project tasks.",
+    "institution_relation": "INDIRECT: Via projects_task → projects_project. Access through task_id → projects_task → projects_project → institution_institution."
+  },
+
+  "projects_tasktimesheet": {
+    "description": "This table tracks time spent on project tasks.",
+    "institution_relation": "INDIRECT: Via projects_task → projects_project. Access through task_id → projects_task → projects_project → institution_institution."
+  },
+
+  "calendar2_publicholiday": {
+    "description": "This table defines public holidays for the institution.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Public holidays are institution-specific."
+  },
+
+  "calendar2_event": {
+    "description": "This table manages calendar events for the institution.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Events are organized at institution level."
+  },
+
+  "calendar2_eventoccurrence": {
+    "description": "This table tracks specific occurrences of recurring events.",
+    "institution_relation": "INDIRECT: Via calendar2_event.institution_id. Access through event_id → calendar2_event → institution_institution."
+  },
+
+  "calendar2_calendar": {
+    "description": "This table represents yearly calendars with holidays and events.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Calendars are institution-specific."
+  },
+
+  "assets_assetcategory": {
+    "description": "This table categorizes assets (IT Equipment, Furniture, Vehicles, etc).",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Asset categories are institution-specific."
+  },
+
+  "assets_asset": {
+    "description": "This table manages physical assets owned by the institution.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Assets belong to one institution."
+  },
+
+  "assets_assetrequest": {
+    "description": "This table tracks employee requests for assets.",
+    "institution_relation": "INDIRECT: Via assets_asset.institution_id. Access through asset_id → assets_asset → institution_institution."
+  },
+
+  "assets_assetallocation": {
+    "description": "This table tracks asset assignments to employees.",
+    "institution_relation": "INDIRECT: Via assets_asset.institution_id. Access through asset_id → assets_asset → institution_institution."
+  },
+
+  "assets_assetreturn": {
+    "description": "This table records asset returns from employees.",
+    "institution_relation": "INDIRECT: Via assets_asset.institution_id. Access through asset_id → assets_asset → institution_institution."
+  },
+
+  "assets_assethistory": {
+    "description": "This table maintains audit trail for asset movements and changes.",
+    "institution_relation": "INDIRECT: Via assets_asset.institution_id. Access through asset_id → assets_asset → institution_institution."
+  },
+
+  "documents_documenttype": {
+    "description": "This table defines document types (Contract, Letter, Report, etc).",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Document types are institution-specific."
+  },
+
+  "documents_documenttemplate": {
+    "description": "This table stores reusable document templates with placeholders.",
+    "institution_relation": "INDIRECT: Via documents_documenttype.institution_id. Access through document_type_id → documents_documenttype → institution_institution."
+  },
+
+  "documents_document": {
+    "description": "This table stores generated documents from templates with filled placeholders.",
+    "institution_relation": "INDIRECT: Via documents_documenttemplate → documents_documenttype. Access through document_template_id → documents_documenttemplate → documents_documenttype → institution_institution."
+  },
+
+  "settings_systemconfiguration": {
+    "description": "This table stores system-wide configuration settings.",
+    "institution_relation": "NONE: Global system settings not tied to specific institutions."
+  },
+
+  "settings_systemday": {
+    "description": "This table defines system-level day definitions (Monday, Tuesday, etc).",
+    "institution_relation": "NONE: Global system reference data not tied to specific institutions."
+  },
+
+  "settings_systemmonth": {
+    "description": "This table defines system-level month definitions (January, February, etc).",
+    "institution_relation": "NONE: Global system reference data not tied to specific institutions."
+  },
+
+  "settings_meetingintegration": {
+    "description": "This table stores integration settings for meeting platforms (Zoom, Teams, Google Meet).",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Meeting integrations are institution-specific."
+  },
+
+  "settings_emailproviderconfig": {
+    "description": "This table configures email provider settings for company email management.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Email provider configurations are institution-specific."
+  },
+
+  "settings_draft": {
+    "description": "This table stores draft/unsaved changes before submission.",
+    "institution_relation": "INDIRECT: Via users_customuser → users_profile.institution_id. Access through user_id → users_customuser → users_profile → institution_institution."
+  },
+
+  "settings_recyclebin": {
+    "description": "This table stores soft-deleted records for potential recovery.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Recycle bin is institution-specific."
+  },
+
+  "approval_action": {
+    "description": "This table defines types of approval actions (Create, Update, Delete, etc).",
+    "institution_relation": "NONE: Global system reference data for approval workflows."
+  },
+
+  "approval_approvergroup": {
+    "description": "This table groups users and roles who can approve certain actions.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Approver groups are institution-specific."
+  },
+
+  "approval_approvergrouprole": {
+    "description": "This table links roles to approver groups (many-to-many).",
+    "institution_relation": "INDIRECT: Via approval_approvergroup.institution_id. Access through approver_group_id → approval_approvergroup → institution_institution."
+  },
+
+  "approval_approvergroupuser": {
+    "description": "This table links users to approver groups (many-to-many).",
+    "institution_relation": "INDIRECT: Via approval_approvergroup.institution_id. Access through approver_group_id → approval_approvergroup → institution_institution."
+  },
+
+  "approval_approvaldocument": {
+    "description": "This table defines which document types require approval workflows.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Approval document configurations are institution-specific."
+  },
+
+  "approval_approvaldocumentlevel": {
+    "description": "This table defines approval levels/stages for documents (Level 1, Level 2, etc).",
+    "institution_relation": "INDIRECT: Via approval_approvaldocument.institution_id. Access through approval_document_id → approval_approvaldocument → institution_institution."
+  },
+
+  "approval_approvaldocumentlevelapprovers": {
+    "description": "This table links approvers to specific approval document levels.",
+    "institution_relation": "INDIRECT: Via approval_approvaldocumentlevel → approval_approvaldocument. Access through approval_document_level_id → approval_approvaldocumentlevel → approval_approvaldocument → institution_institution."
+  },
+
+  "approval_approvaldocumentleveloverriders": {
+    "description": "This table links users who can override approvals at specific levels.",
+    "institution_relation": "INDIRECT: Via approval_approvaldocumentlevel → approval_approvaldocument. Access through approval_document_level_id → approval_approvaldocumentlevel → approval_approvaldocument → institution_institution."
+  },
+
+  "approval_approval": {
+    "description": "This table tracks individual approval requests for documents/records.",
+    "institution_relation": "INDIRECT: Via approval_approvaldocument.institution_id. Access through document_id → approval_approvaldocument → institution_institution."
+  },
+
+  "approval_approvaltask": {
+    "description": "This table tracks approval tasks assigned to approvers at each level.",
+    "institution_relation": "INDIRECT: Via approval_approval → approval_approvaldocument. Access through approval_id → approval_approval → approval_approvaldocument → institution_institution."
+  },
+
+  "spotcheck_institutionspotchecksetting": {
+    "description": "This table configures spot check settings at institution level (random attendance verification).",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Spot check settings are institution-wide."
+  },
+
+  "spotcheck_branchspotchecksetting": {
+    "description": "This table configures spot check settings at branch level.",
+    "institution_relation": "INDIRECT: Via institution_branch.institution_id. Access through branch_id → institution_branch → institution_institution."
+  },
+
+  "spotcheck_employeespotchecksetting": {
+    "description": "This table configures custom spot check settings for individual employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → department/branch → institution_institution."
+  },
+
+  "spotcheck_spotcheckstatus": {
+    "description": "This table defines statuses for spot checks (Pending, Responded, Expired, etc).",
+    "institution_relation": "NONE: Global system reference data for spot check statuses."
+  },
+
+  "spotcheck_employeespotcheck": {
+    "description": "This table records individual spot check instances sent to employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → department/branch → institution_institution."
+  },
+
+  "communication_notification": {
+    "description": "This table stores in-app notifications sent to users.",
+    "institution_relation": "INDIRECT: Via users_customuser → users_profile.institution_id. Access through user_id_id → users_customuser → users_profile → institution_institution."
+  },
+
+  "communication_announcement": {
+    "description": "This table manages company-wide or targeted announcements.",
+    "institution_relation": "INDIRECT: Via target entities (employee, institution_department, recruitment_jobposition). Access through target relationships to institution_institution."
+  },
+
+  "communication_employeeannouncementacknowledgment": {
+    "description": "This table tracks which employees have acknowledged announcements.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → department/branch → institution_institution."
+  },
+
+  "communication_notes": {
+    "description": "This table stores personal notes created by users.",
+    "institution_relation": "INDIRECT: Via users_customuser → users_profile.institution_id. Access through owner_id → users_customuser → users_profile → institution_institution."
+  },
+
+  "helpdesk_faqcategory": {
+    "description": "This table categorizes FAQ entries for the helpdesk system.",
+    "institution_relation": "DIRECT: institution_id → institution_institution. FAQ categories are institution-specific."
+  },
+
+  "helpdesk_faq": {
+    "description": "This table stores frequently asked questions and answers.",
+    "institution_relation": "INDIRECT: Via helpdesk_faqcategory.institution_id. Access through category_id → helpdesk_faqcategory → institution_institution."
+  },
+
+  "helpdesk_ticketcategory": {
+    "description": "This table categorizes support tickets (IT, HR, Facilities, etc).",
+    "institution_relation": "DIRECT: institution_id → institution_institution. Ticket categories are institution-specific."
+  },
+
+  "helpdesk_ticket": {
+    "description": "This table manages support tickets submitted by users.",
+    "institution_relation": "INDIRECT: Via helpdesk_ticketcategory.institution_id. Access through category_id → helpdesk_ticketcategory → institution_institution."
+  },
+
+  "helpdesk_ticketcomment": {
+    "description": "This table stores comments/replies on support tickets.",
+    "institution_relation": "INDIRECT: Via helpdesk_ticket → helpdesk_ticketcategory. Access through ticket_id → helpdesk_ticket → helpdesk_ticketcategory → institution_institution."
+  },
+
+  "helpdesk_ticketattachment": {
+    "description": "This table stores file attachments for support tickets.",
+    "institution_relation": "INDIRECT: Via helpdesk_ticket → helpdesk_ticketcategory. Access through ticket_id → helpdesk_ticket → helpdesk_ticketcategory → institution_institution."
+  },
+
+  "devices_device": {
+    "description": "This table manages physical devices (biometric scanners, attendance terminals).",
+    "institution_relation": "DIRECT: institution_id → institution_institution AND INDIRECT via institution_branch. Devices belong to institution and can be assigned to branches."
+  },
+
+  "devices_deviceemployeeattachment": {
+    "description": "This table links employees to devices for biometric enrollment.",
+    "institution_relation": "INDIRECT: Via devices_device.institution_id OR employee → institution. Access through device_id → devices_device → institution_institution."
+  },
+
+  "systems_partnersystem": {
+    "description": "This table defines external partner systems available for integration.",
+    "institution_relation": "NONE: Global system catalog. Actual institution connections are in institution_institutionpartnersystem."
+  },
+
+  "users_customuser": {
+    "description": "This table contains information about the users that can login into the system.",
+    "institution_relation": "INDIRECT: Via users_profile.institution_id. Access through user profile relationship to institution_institution."
+  },
+
+  "users_onetimepassword": {
+    "description": "This table stores OTP codes for authentication and password resets.",
+    "institution_relation": "NONE: OTP is user-level security, not directly tied to institutions."
+  },
+
+  "users_permissioncategory": {
+    "description": "This table categorizes permissions for better organization.",
+    "institution_relation": "NONE: Global system reference data for permission categorization."
+  },
+
+  "users_permission": {
+    "description": "This table defines granular permissions in the system.",
+    "institution_relation": "NONE: Global system permissions, applied per institution through roles."
+  },
+
+  "users_userpermission": {
+    "description": "This table assigns specific permissions directly to users (bypassing roles).",
+    "institution_relation": "INDIRECT: Via users_customuser → users_profile.institution_id. Access through user_id → users_customuser → users_profile → institution_institution."
+  },
+
+  "users_otpmodel": {
+    "description": "This table stores OTP verification codes for users.",
+    "institution_relation": "INDIRECT: Via users_customuser → users_profile.institution_id. Access through user_id → users_customuser → users_profile → institution_institution."
+  },
+
+  "users_systemtype": {
+    "description": "This table defines types of systems in the application.",
+    "institution_relation": "NONE: Global system reference data."
+  },
+
+  "users_system": {
+    "description": "This table defines system instances with API keys.",
+    "institution_relation": "NONE: System-level configuration. Institutions reference this via institution.system_id."
+  },
+
+  "recruitment_requireddocument": {
+    "description": "This table defines required documents for job positions or other entities.",
+    "institution_relation": "INDIRECT: Via GenericForeignKey to various models. Access through content_object relationship chain to institution_institution."
+  },
+
+  "recruitment_jobpositiondocumenttemplate": {
+    "description": "This table links document templates to job positions for specific purposes.",
+    "institution_relation": "INDIRECT: Via recruitment_jobposition → institution_department. Access through job_position_id → recruitment_jobposition → institution_department → institution_institution."
+  },
+
+  "employee_qualificationaward": {
+    "description": "This table defines educational qualification types (Diploma, Bachelor's, Master's, etc).",
+    "institution_relation": "NONE: Global system reference data for education levels."
+  },
+
+  "employee_employeebirthdaytask": {
+    "description": "This table tracks scheduled tasks for employee birthday notifications.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → department/branch → institution_institution."
+  },
+
+  "employee_supervisoremployee": {
+    "description": "This table links supervisors to their supervised employees (many-to-many).",
+    "institution_relation": "INDIRECT: Via employee_supervisor and employee relationships to institution."
+  },
+
+  "employee_employeesupervisor": {
+    "description": "This table assigns supervisors to employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → department/branch → institution_institution."
+  },
+
+  "employee_employeecheckinbranch": {
+    "description": "This table defines which branches an employee can check in at (many-to-many).",
+    "institution_relation": "INDIRECT: Via institution_branch.institution_id OR employee → institution. Access through branch_id → institution_branch → institution_institution."
+  },
+
+  "employee_employeecompanyemail": {
+    "description": "This table manages company email accounts for employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → branch → institution_institution."
+  },
+
+  "employee_employeemonthlyhouraccount": {
+    "description": "This table aggregates monthly working hours, overtime, and absences for employees.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → branch → institution_institution."
+  },
+
+  "employee_employeelogs": {
+    "description": "This table logs employee device interactions and attendance records.",
+    "institution_relation": "INDIRECT: Via employee → institution. Access through employee_id → employee → branch → institution_institution."
+  },
+
+  "discipline_disciplinetype": {
+    "description": "This table defines types of disciplinary issues (Misconduct, Absence, Policy Violation, etc).",
+    "institution_relation": "NONE: Global system reference data for discipline categorization."
+  }
+}
