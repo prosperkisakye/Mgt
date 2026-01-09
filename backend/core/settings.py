@@ -27,10 +27,9 @@ if not FIELD_ENCRYPTION_KEY:
 
 
 INSTALLED_APPS = [
+    "jazzmin",
     "daphne",
     "channels",
-    "jazzmin",
-    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -40,8 +39,21 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
     "drf_spectacular",
-    "users"
+    "users",
+    "system",
+    "billing"
 ]
+
+JAZZMIN_SETTINGS = {
+    "site_title": "My Admin",
+    "site_header": "My Admin",
+    "site_brand": "My Brand",
+    "show_ui_builder": True,
+    "hide_apps": [],
+    "hide_models": [],
+    "order_with_respect_to": ["auth", "users", "system", "billing"],
+}
+
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
